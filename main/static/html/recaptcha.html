@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>Matrix Register with reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../lib/matrix.js"></script>
+    <script src="../js/recaptcha.js"></script>
+</head>
+<body>
+    <h2>Matrix.org: register new user demo</h2>
+
+    User name:<br/>
+    <input type="text" id="username" placeholder="username">
+    <button id="register">Register</button>
+    <br/>
+    <br/>
+
+    <div class="g-recaptcha" data-sitekey="6LcgI54UAAAAABGdGmruw6DdOocFpYVdjYBRe4zb" data-callback="reCaptchaFullfilled"></div>
+    <br/>
+    <br/>
+
+    <button id="submit">Submit</button>
+    <br/>
+    <br/>
+
+    <div id="result">(result)</div>
+    <div id="sessionId">(sessionId)</div>
+    <div id="publicKey">(publicKey)</div>
+
+</body>
+</html>

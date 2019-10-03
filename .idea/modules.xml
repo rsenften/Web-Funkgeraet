@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/WebFunkgeraet.iml" filepath="$PROJECT_DIR$/.idea/WebFunkgeraet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Web-Funkgeraet.iml" filepath="$PROJECT_DIR$/Web-Funkgeraet.iml" />
     </modules>
   </component>
 </project>
