@@ -1,0 +1,26 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../main/static/lib/matrix.js"></script>
+    <script src="../main/static/js/create_rooms.js"></script>
+</head>
+<body>
+    <h3>Create matrix.org-rooms for RadioSet Simulation</h3>
+    First, please login:<br>
+    <button id="tf001">tf001</button>
+    <br><br>
+    <div id="config"></div>
+    <br>
+    <table id="inputs">
+        <tr><td>From:</td><td><input type="text" id="fromNum" value="1"></td></tr>
+        <tr><td>To:</td><td><input type="text" id="toNum" value="16"></td></tr>
+        <tr><td>Pattern:</td><td><input type="text" id="pattern" value="RSSIM-TEST-CH{%1}">&nbsp;use {%1} as placeholder for channel number</td></tr>
+    </table>
+    <br><br>
+    <button id="createRooms">Create Rooms</button>
+    <br><br>
+    <div id="result"></div>
+    <br><br>
+    <div id="conclusion"></div>
+</body>
+</html>

@@ -1,8 +1,10 @@
 from django.shortcuts import render
 
 def home_view(request):
-    #sklödnfoösnd
-    response = HTTPResponse('home.html', data=data)
-    return response
-# Create your views here.
+    return render(request, 'home_view.html', {})
 
+def create_rooms(request):
+    return render(request, 'create_rooms.html', {})
+
+def simple_call(request):
+    return render(request, 'simple_call.html', {})
