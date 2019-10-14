@@ -5,8 +5,17 @@
 </head>
 <body>
     <h2>RadioSet Simulator</h2>
-    <div id="config"></div>
 
+    <form action="{% url 'admin:index' %}">
+        <input type="submit" value="Admin" />
+    </form>
+    <form action="{% url 'create_rooms' %}">
+        <input type="submit" value="Simple call" />
+    </form>
+    <form action="{% url 'simple_call' %}">
+        <input type="submit" value="Simple call" />
+    </form>
+    <div id="config"></div>
     <div id="result"></div>
     <br>
 </body>
