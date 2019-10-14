@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<head>
+  <meta charset="UTF-8">
+  <title>Mein Funkgerät</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/css/simulator.css" media="screen">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href='https://fonts.googleapis.com/css?family=Exo 2' rel='stylesheet'>
+
+</head>
+
+
+<h1>Simulator</h1>
+<div id="simulator">
+
+  <div id="image-wrapper">
+    <div class="row" id="display">
+      <div class="col-6" id="display_left_col">
+
+        <div class="row">
+          <div class='col-2'></div>
+          <div id='power' class='col-2'></div>
+          <div id='country' class='col-2'></div>
+          <div class='col-6'></div>
+        </div>
+
+        <div class="row">
+          <div class="col-7"></div>
+          <div id="standby" class="col-3"></div>
+          <div class="col-2"></div>
+        </div>
+
+        <div class="row">
+          <div id="coordinate_N" class="col-8"></div>
+          <div class="col-4"></div>
+        </div>
+
+        <div class="row">
+          <div id="coordinate_W" class="col-8"></div>
+          <div class="col-4"></div>
+        </div>
+
+        <div class="row">
+          <div id="time" class="col-8"></div>
+          <div class="col-4"></div>
+        </div>
+
+      </div>
+
+      <div class="col-6" id="display_right_col">
+        <div id='channel'></div>
+      </div>
+    </div>
+
+    <div class="row" id="btn_description_row">
+
+      <div id="btn_1_description" class="col-3"></div>
+      <div id="btn_2_description" class="col-3"></div>
+      <div id="btn_3_description" class="col-3"></div>
+      <div id="btn_4_description" class="col-3"></div>
+
+    </div>
+
+    <div class="btn_row">
+      <div>
+        <button id="btnScan" class="button"></button>
+      </div>
+      <div>
+        <button id="btnDW" class="button"></button>
+      </div>
+      <div>
+        <button id="btnCH_WX" class="button"></button>
+      </div>
+      <div>
+        <button id="btnHI_LO" class="button"></button>
+      </div>
+    </div>
+
+    <div class="control_wheel">
+      <img id="control_wheel_img" src="../static/img/testKnob.png" alt="no image">
+    </div>
+
+    <div id="div_16_c">
+      <button id="btn_16_c" class="button"></button>
+    </div>
+
+      </div>
+
+</div>
+
+<script src="../static/js/wheel_mechanics.js"></script>
+<script src="../static/js/main.js"></script>
+</body>
+</html>

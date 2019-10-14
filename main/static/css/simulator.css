@@ -1,0 +1,211 @@
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* General */
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#simulator {
+    width: 67vw;
+    height: 45vw;
+}
+
+#image-wrapper {
+  background-image: url("../img/IcomIcM330GE.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  width: 100%;
+  height: 100%;
+
+}
+
+button {
+  border: 0 none;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Display */
+
+#display {
+  width: 31.5%;
+  height: 22.5%;
+
+  position: relative;
+  left: 38.5%;
+  top: 47.5%;
+
+  color: black;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.75vw;
+  line-height: 1.75vw;
+
+  background-color: orange;
+}
+
+#display_left_col {
+  padding-right: 0 !important;
+}
+
+#display_right_col {
+  padding-left: 0 !important;
+}
+
+#power {
+  padding-left: 2vw;
+
+  font-size: 1.375vw;
+  line-height: 1.43vw;
+}
+
+#country {
+  margin-left: 1vw;
+
+  text-align: center;
+  font-size: 1.375vw;
+  line-height: 1.43vw;
+}
+
+#channel {
+  padding-top: 1vw;
+
+  font-size: 8.2vw;
+  font-weight: bold;
+  line-height: 8.2vw;
+}
+
+#btn_description_row {
+  height: 4%;
+  width: 31.5%;
+
+  position: relative;
+  top: 44%;
+  left: 38.5%;
+
+  padding-left: 0.3vw;
+  padding-right: 0.3vw;
+  padding-bottom: 0.1vw;
+}
+
+#btn_1_description, #btn_2_description, #btn_3_description, #btn_4_description {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding: 0 !important;
+
+  color: orange;
+  font-size: 1.375vw;
+  line-height:  1.375vw;
+  text-align: center;
+
+  background-color: black;
+
+  border-radius: 3px;
+}
+
+#standby {
+  padding: 1px !important;
+
+  color: orange;
+  font-size: 1.125vw;
+  line-height: 1.5vw;
+
+  background-color: black;
+
+  border-radius: 4px;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Row of buttons beneath the display */
+
+.btn_row {
+  position: relative;
+  left: 37.5%;
+  top: 50.5%;
+
+  display: block;
+  width: 35%;
+  height: 6.5%;
+
+  background-color: #1f2324;
+}
+
+.btn_row button {
+  width: 100%;
+  height: 100%;
+}
+
+.btn_row > div {
+  display: inline-block;
+  height: 100%;
+  width: 22.5%;
+
+  margin: 0;
+}
+
+#btnScan {
+  background-image: url("../img/btn330_Low1.png");
+}
+
+#btnDW {
+  background-image: url("../img/btn330_Low2.png");
+}
+
+#btnCH_WX {
+  background-image: url("../img/btn330_Low3.png");
+}
+
+#btnHI_LO {
+  background-image: url("../img/btn330_Low4.png");
+}
+
+.button {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #1f2324;
+}
+
+.button:focus {
+  outline: 0;
+}
+
+#div_16_c {
+  width: 7%;
+  height: 9%;
+
+  position: relative;
+  left: 71%;
+  top: 22%;
+
+  background-color: #1f2324;
+
+  border-radius: 20px;
+}
+
+#btn_16_c {
+  width: 100%;
+  height: 100%;
+
+  background-image: url("../img/temp.png");
+
+  border-radius: 20px;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Control wheel */
+
+.control_wheel {
+  position: relative;
+  top: 37%;
+  left: 78.5%;
+
+  border-radius: 100px;
+}
+
+.control_wheel img {
+  width: 12.5%;
+}
