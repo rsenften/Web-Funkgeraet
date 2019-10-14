@@ -12,7 +12,7 @@ html, body {
 }
 
 #image-wrapper {
-  background-image: url("../../images/IcomIcM330GE.jpg");
+  background-image: url("../img/IcomIcM330GE.jpg");
   background-repeat: no-repeat;
   background-size: contain;
 
@@ -146,19 +146,19 @@ button {
 }
 
 #btnScan {
-  background-image: url("../../images/btn330_Low1.png");
+  background-image: url("../img/btn330_Low1.png");
 }
 
 #btnDW {
-  background-image: url("../../images/btn330_Low2.png");
+  background-image: url("../img/btn330_Low2.png");
 }
 
 #btnCH_WX {
-  background-image: url("../../images/btn330_Low3.png");
+  background-image: url("../img/btn330_Low3.png");
 }
 
 #btnHI_LO {
-  background-image: url("../../images/btn330_Low4.png");
+  background-image: url("../img/btn330_Low4.png");
 }
 
 .button {
@@ -189,7 +189,7 @@ button {
   width: 100%;
   height: 100%;
 
-  background-image: url("../../images/temp.png");
+  background-image: url("../img/temp.png");
 
   border-radius: 20px;
 }
