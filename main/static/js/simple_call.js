@@ -49,6 +49,7 @@ $(document).ready(function () {
     document.getElementById("tf004").onclick = function() {
         initAndRegisterGuest("@tf004g:matrix.org");
     };
+    initPTT();
 });
 
 
@@ -165,3 +166,51 @@ function showConfig() {
         "</p>";
 }
 
+let stream;
+let gUM = c => navigator.mediaDevices.getUserMedia(c);
+
+function initPTT() {
+    $("#ptt").mousedown(() => pttMouse(true));
+    $("#ptt").mouseup(() => pttMouse(false));
+    $("#ptt").mouseleave((e) => pttMouseleave(e));
+    $("#mic").click(() => micClick());
+
+    console.log(("PTT & Microphone initialized"))
+}
+
+(async () => {
+    stream = await gUM({audio: true});
+    if (stream) {
+        setMicState(false);
+        console.log("-------> Got userMedia successfully")
+    }
+})().catch(err => errorCallback(err));
+
+function  errorCallback(err) {
+    console.log("x x x --> Error getting userMedia!\n" + err)
+}
+
+function pttMouse(talk) {
+    console.log("PTT mouse event, talk = " + talk.toString());
+    setMicState(talk)
+}
+
+function pttMouseleave(event) {
+    console.log("PTT mouseleave event");
+    let key = event.buttons;
+    if (key && key === 1) {
+        setMicState(false)
+    }
+}
+
+function micClick() {
+    setMicState($("#mic").prop("checked"))
+}
+
+function setMicState(on) {
+    $("#mic").prop("checked", on);
+    stream.getAudioTracks().forEach(function(track) {
+        track.enabled = on;
+    }, on);
+    console.log("microphone is " + (on ? "enabled ********" : "******* disabled"))
+}
