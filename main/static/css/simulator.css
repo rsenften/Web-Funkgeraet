@@ -34,7 +34,7 @@ button {
   height: 22.5%;
 
   position: relative;
-  left: 38.5%;
+  left: 39.5%;
   top: 47.5%;
 
   color: black;
@@ -82,7 +82,7 @@ button {
 
   position: relative;
   top: 44%;
-  left: 38.5%;
+  left: 39.5%;
 
   padding-left: 0.3vw;
   padding-right: 0.3vw;
@@ -116,6 +116,49 @@ button {
   border-radius: 4px;
 }
 
+/*--------------------------------------------------------------------------------------------------------------------*/
+/* Volume / SQL */
+
+#vol_dialogue, #sql_dialogue {
+  position: relative;
+  z-index: 10;
+  border: 1px solid black;
+  display: none;
+  width: 87%;
+  height: 87%;
+  left: 7%;
+  top: 8%;
+  background-color: orange;
+}
+
+#vol_dialogue_text_row, #sql_dialogue_text_row {
+  position: relative;
+  width: 80%;
+  left: 10%;
+  font-weight: bolder;
+}
+
+#vol_number, #sql_number {
+  text-align: right;
+}
+
+#vol_bar, #sql_bar {
+    position: relative;
+  top: 25%;
+
+  left: 24%;
+  border: 1px solid black;
+  border-radius: 9px;
+  height: 22%;
+  width: 77%;
+  background-color: transparent;
+}
+
+#vol_bar_progress, #sql_bar_progress {
+  border-radius: 5px;
+  width: 40%;
+  background-color: black;
+}
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Row of buttons beneath the display */
