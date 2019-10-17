@@ -1,0 +1,15 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../static/lib/matrix.js"></script>
+    <script src="../static/js/create_room.js"></script>
+</head>
+<body>
+    <h2>Saved Room for RadioSet Simulation</h2>
+    <span><a href="{% url 'home_view' %}">Back</a>&nbsp;to Home</span><br>
+    <span><a href="{% url 'create_room' %}">Create</a>&nbsp;another room</span>
+    <br><br>
+    <h3>Room saved:</h3>
+    <h2>{{room.name}} / {{room.id}}</h2>
+</body>
+</html>

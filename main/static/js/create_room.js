@@ -12,19 +12,14 @@ var ROOM_ID = "!IDTxyVLBWnjXswzvrA:matrix.org";
 var USER_ID;
 var PASSWD;
 var client;
-
-var fromNum;
-var toNum;
-var pattern;
-var param1 = "{%1}";
+var roomName;
 var text = "(init)";
 var roomList = {};
 
 // window.onloadend = function() {
 $(document).ready(function () {
     $("#tf001").click(() => initClient("@tf001:matrix.org"));
-    $("#createRooms").hide();
-    $("#createRooms").click(() => createRoomsWithPromises());
+    $("#createRoom").click(() => createSingleRoom());
 
     console.log("Document ready...");
 });
@@ -73,71 +68,42 @@ function initClient(userid) {
 
 function syncComplete() {
     setResult("<p>Client login & start completed...</p>");
-    $("#createRooms").show();
+    $("#createRoom").show();
     logRoomsToConsole();
 }
 
-//----------------
-//  Create Rooms
-//----------------
-function readInputs() {
-    fromNum = $("#fromNum").val();
-    toNum = $("#toNum").val();
-    pattern = $("#pattern").val();
-}
+//------------------------------
+//  Create a singler room
+// -----------------------------
+function createSingleRoom() {
+    if (client) {
+        roomName = $("#room-name").val();
+        setResult(roomName);
 
-function createRoomsWithPromises() {
-    roomList = {};
-    text = "Creating Rooms:<br>";
-    setResult(text);
-    readInputs();
-
-    const ids = [];
-    for (var id = fromNum; id <= toNum; id++) {
-        ids.push(parseInt(id));
-    }
-    console.log(ids);
-
-    const funcs = ids.map(id => () => createRoom(id));
-    // execute Promises in serial
-    promiseSerial(funcs)
-        .then((resultArray) => creationFinished(resultArray))
-        .catch(console.error.bind(console));
-}
-
-// Execute the list of promises in serial, accumulate result in an array
-const promiseSerial = funcs =>
-    funcs.reduce((promise, func) =>
-            promise.then(result =>
-                func().then(Array.prototype.concat.bind(result))),
-        Promise.resolve([]));
-
-
-// This promise resolves the Room Name
-const createRoom = id =>
-    new Promise((resolve) => {
-        let chan = (id < 10 ? "0" : "") + id;
-        let roomName = pattern.replace(param1, chan);
-        text += roomName;
-        setResult(text);
-
-        client.createRoom({"room_alias_name" : roomName})
+        client.createRoom({"room_alias_name": roomName})
             .then((response) => {
                 let roomId = response.room_id;
-                roomList.appendItem({"room": {"room_name" : roomName, "room_id" : roomId}});
-                setResult(text += (" ...done. ID = " + roomId + "<br>"));
-                resolve(response);
+                appendResult(" ...done. Id = " + roomId + "<br>");
+                creationSuccess(roomName, roomId);
             })
             .catch((response) => {
                 console.log("Create room failed, reason: " + response);
-                setResult(text += (" ...failed. error = " + response + "<br>"));
-                resolve(response);
+                appendResult(" ...failed. error = " + response + "<br>");
+                creationFailed(response);
             });
-    });
+    } else {
+        setResult("Please login again")
+    }
+}
 
-function creationFinished (res) {
+function creationSuccess (name, id) {
+    console.log("Name: " + name + ": Id: " + id);
+    $("#room-name").val(name);  // ist schon dort
+    $("#room-id").val(id);
+}
+
+function creationFailed(res) {
     console.log(res);
-    $("#conclusion").html("--> Creation finished.<br>");
 }
 
 function wait(milliseconds) {
@@ -153,14 +119,15 @@ function appendResult(aText) {
 }
 
 function logRoomsToConsole() {
-    console.log("  Existing rooms:");
+    console.log("  Existing rooms in matrix.org:");
     var rooms = client.getRooms();
     wait(1000).then(() => {
         rooms.forEach(room => {
-            console.log("  -> Room: " + room.roomsData + " / " + room.roomId);
-            //console.log("  -> Room: " + room.toString());
+            console.log("  -> Room: " + room.room + " / " + room.roomId);
         });
     });
 }
 
-
+/*
+    Name: RSSIM-TEST-CH29: Id: !shrRFGfsBtKmQzIAxh:matrix.org
+ */

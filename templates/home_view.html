@@ -9,8 +9,14 @@
     <form action="{% url 'admin:index' %}">
         <input type="submit" value="Admin" />
     </form>
+    <form action="{% url 'simulator' %}">
+        <input type="submit" value="ICOM IC-M330GE" />
+    </form>
     <form action="{% url 'create_rooms' %}">
         <input type="submit" value="Create Rooms" />
+    </form>
+    <form action="{% url 'create_room' %}">
+        <input type="submit" value="Create single room" />
     </form>
     <form action="{% url 'simple_call' %}">
         <input type="submit" value="Simple Call" />

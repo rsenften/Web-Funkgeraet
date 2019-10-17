@@ -1,0 +1,30 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../static/lib/matrix.js"></script>
+    <script src="../static/js/create_room.js"></script>
+</head>
+<body>
+    <h2>Create matrix.org-rooms for RadioSet Simulation</h2>
+    <span><a href="{% url 'home_view' %}">Back</a>&nbsp;to Home</span>
+    <br><br>
+    <span>First, please login:&nbsp;<button id="tf001">tf001</button></span>
+    <br>
+    <div id="config"></div>
+    <br>
+    <div id="result"></div>
+    <br><br>
+    <button id="createRoom">Create on matrix.org</button>
+    <br><br>
+    <form action="{% url 'save_room' %}" method="post">
+        {% csrf_token %}
+        <label for="room-name">Room Name</label>
+        <input type="text" id="room-name" name="room-name" value="RSSIM-TEST-CH..">
+        <br><br>
+        <label for="room-id">Room Id</label>
+        <input type="text" id="room-id" name="room-id" value="">
+        <br><br>
+        <input id="saveBtn" type="submit" value="Save room to DB" />
+    </form>
+</body>
+</html>

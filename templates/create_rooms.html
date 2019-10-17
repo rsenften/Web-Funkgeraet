@@ -19,6 +19,9 @@
     </table>
     <br><br>
     <button id="createRooms">Create Rooms</button>
+    <form action="{% url 'save_rooms' %}">
+        <input id="saveBtn" type="submit" value="Save Rooms to DB" />
+    </form>
     <br><br>
     <div id="result"></div>
     <br><br>
