@@ -3,29 +3,59 @@
     <title>Matrix Register with reCAPTCHA</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="../main/static/lib/matrix.js"></script>
-    <script src="../main/static/js/recaptcha.js"></script>
+    <script src="../static/lib/matrix.js"></script>
+    <script src="../static/js/recaptcha.js"></script>
 </head>
 <body>
-    <h2>Matrix.org: register new user demo</h2>
+    <h2>Matrix.org: register new user</h2>
+    <span><a href="{% url 'home_view' %}">Back</a>&nbsp;to Home</span>
+    {% csrf_token %}
+    <br>
+    <div>
+        <h3>1. Registration attempt</h3>
+        <span>With the user name we register a first time at matrix.org.</span>
+        <span>This gives us a sessionId and the siteKey used for solving the reCaptcha.</span>
+        <br/>
+        <span>User name:</span>
+        <input type="text" id="username" placeholder="enter username">
+        <button id="reg-info">Register to get the info</button>
+        <br/><br/>
+        <div id="sessionId">(sessionId)</div>
+        <div id="publicKey">(publicKey)</div>
+        <br/>
+    </div>
 
-    User name:<br/>
-    <input type="text" id="username" placeholder="username">
-    <button id="register">Register</button>
-    <br/>
-    <br/>
+    <div>
+        <hr>
+        <h3>2. Solve reCaptcha</h3>
+        <span>Now solve the reCaptcha challenge (hostet by Google) and register the result</span>
+        <div class="g-recaptcha" data-sitekey="6LcgI54UAAAAABGdGmruw6DdOocFpYVdjYBRe4zb" data-callback="reCaptchaCallback"></div>
+        <br/>
+        <div id="recaptchaKey">(recaptchaKey)</div>
+        <br/>
+        <button id="reg-recap">Register with the solved reCaptcha, m.login.recaptcha</button>
+        <br/><br/>
+    </div>
 
-    <div class="g-recaptcha" data-sitekey="6LcgI54UAAAAABGdGmruw6DdOocFpYVdjYBRe4zb" data-callback="reCaptchaFullfilled"></div>
-    <br/>
-    <br/>
+    <div>
+        <hr>
+        <h3>3. Registration</h3>
+        <span>Register with dummy or terms </span>
+        <br/><br/>
+        <button id="reg-dummy">Register m.login.dummy</button>
+        <button id="reg-terms">Register m.login.terms</button>
+        <br/>
+    </div>
 
-    <button id="submit">Submit</button>
-    <br/>
-    <br/>
-
-    <div id="result">(result)</div>
-    <div id="sessionId">(sessionId)</div>
-    <div id="publicKey">(publicKey)</div>
+    <div>
+        <br/>
+        <hr>
+        <span>The result of the last request:</span>
+        <br/>
+        <div id="result">(result)</div>
+        <br/>
+        <div id="result2">(result2)</div>
+    </div>
 
 </body>
 </html>

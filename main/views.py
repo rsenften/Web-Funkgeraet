@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from .models import Room
 
-
 def home_view(request):
     return render(request, 'home_view.html', {})
+
+
+def list_rooms(request):
+    return render(request, 'list_rooms.html', {"rooms": Room.objects.all().order_by('room_name')})
 
 
 def create_rooms(request):
@@ -15,7 +18,8 @@ def create_room(request):
 
 
 def simple_call(request):
-    return render(request, 'simple_call.html', {})
+
+    return render(request, 'simple_call.html', {"rooms": Room.objects.all().order_by('room_name')})
 
 
 def simulator(request):
@@ -37,3 +41,7 @@ def save_room(request):
         else:
             created = {"room": {"name": "Room " + rna + " already exists", "id": "not saved"}}
     return render(request, 'save_room.html', created)
+
+
+def recaptcha_demo(request):
+    return render(request, 'recaptcha.html')

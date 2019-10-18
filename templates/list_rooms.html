@@ -1,0 +1,17 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <h2>Rooms for RadioSet Simulation</h2>
+    <span><a href="{% url 'home_view' %}">Back</a>&nbsp;to Home</span>
+    <br><br>
+    <label>Room Name / Room Id:</label>
+    <br>
+    <ul>
+        {% for r in rooms %}
+        <li>{{ r.room_name }} / {{ r.room_id  }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

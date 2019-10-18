@@ -5,6 +5,7 @@
 </head>
 <body>
     <h2>RadioSet Simulator</h2>
+    <h3>Kind of a menu:</h3>
 
     <form action="{% url 'admin:index' %}">
         <input type="submit" value="Admin" />
@@ -12,8 +13,8 @@
     <form action="{% url 'simulator' %}">
         <input type="submit" value="ICOM IC-M330GE" />
     </form>
-    <form action="{% url 'create_rooms' %}">
-        <input type="submit" value="Create Rooms" />
+    <form action="{% url 'list_rooms' %}">
+        <input type="submit" value="List Rooms" />
     </form>
     <form action="{% url 'create_room' %}">
         <input type="submit" value="Create single room" />
@@ -21,8 +22,8 @@
     <form action="{% url 'simple_call' %}">
         <input type="submit" value="Simple Call" />
     </form>
-    <div id="config"></div>
-    <div id="result"></div>
-    <br>
+    <form action="{% url 'recaptcha_demo' %}">
+        <input type="submit" value="ReCAPTCHA demo" />
+    </form>
 </body>
 </html>
