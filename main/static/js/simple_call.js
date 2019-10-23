@@ -4,55 +4,72 @@ console.log("VoIP-Test loading...");
 var BASE_URL = "https://matrix.org";
 
 // Room "talent-factory":
-var ROOM_ID = "!IDTxyVLBWnjXswzvrA:matrix.org";
-var TOKEN;
-var USER_ID;
-var PASSWD;
+var TF_ROOM_ID = "!IDTxyVLBWnjXswzvrA:matrix.org";
+var RSIM_PASSWD = "Bernapark-ZID-TFAG";
 
+var token;
+var userId;
+var passwd;
+
+var roomId;
 var client;
 var call;
 
-//window.onloadend = function() {
+
 $(document).ready(function () {
     console.log("Document ready...");
     disableButtons(true, true, true);
 
-    $("#roomselector").change(function() {
-        $("#selval").html( $(this).children(":selected").val())});
+    $("#roomselector").change(() => setRoomId($("#roomselector").children(":selected").val()));
+    $("#tf-radio-sim").click(() => setRoomId("#tf-radio-sim:matrix.org"));
 
-    $("#tf001").click(() => initClient("@tf001:matrix.org"));
-    $("#tf002").click(() => initClient("@tf002:matrix.org"));
-    $("#tf003").click(() => initClient("@tf003:matrix.org"));
-    $("#stefangraf").click(() => initClient("@stefangraf:matrix.org"));
-    $("#tf004").click(() => initAndRegisterGuest("@tf004g:matrix.org"));
+    $("#tf001").click(() => setUser("@tf001:matrix.org"));
+    $("#tf002").click(() => setUser("@tf002:matrix.org"));
+    $("#tf003").click(() => setUser("@tf003:matrix.org"));
+    $("#stefangraf").click(() => setUser("@stefangraf:matrix.org"));
+    $("#takeuser").click(() => setUser("@" + $("#usernameinput").val() + ":matrix.org"));
+
+    //$("#tf004").click(() => initAndRegisterGuest("tf004g"));
+
+    $("#initClient").click(() => initClient(userId));
 
     initPTT();
 });
 
+function setRoomId(room) {
+    roomId = room;
+    $("#selval").html(roomId);
+    console.log("Set room: " + roomId);
+}
+
+function setUser(user) {
+    userId = user;
+    $("#seluser").html(userId);
+    console.log("Set user: " + userId);
+}
 
 function initClient(user) {
-    USER_ID = user;
-    console.log("Selected user: " + USER_ID);
-
+    setResult("Please wait. Creating Client... ");
     client = matrixcs.createClient({ baseUrl: BASE_URL, });
-    if (user.startsWith("@stefangraf")){
-        PASSWD = "Bernapark-ZID-TFAG";
-    } else {
-        PASSWD = "Berna-" + USER_ID.substr(1,5);
+
+    passwd = RSIM_PASSWD;
+    if (user.startsWith("@tf00")){
+        passwd = "Berna-" + user.substr(1,5);
     }
-    console.log(PASSWD);
-    client.login("m.login.password", {"user": USER_ID, "password": PASSWD})
+    console.log("Password: "+passwd);
+
+    showConfig();
+    appendResult("Login... ");
+    client.login("m.login.password", {"user": user, "password": passwd})
         .then((response) => {
-            TOKEN = response.access_token;
+            token = response.access_token;
             console.log(response.access_token);
             showConfig();
 
+            appendResult("Syncing... ");
             client.startClient();
         })
         .catch((err) => displayError(err));
-
-    $("#result").html(" <p>Please wait. Syncing...</p>");
-    showConfig();
 
     client.on("sync", function(state, prevState, data) {
         switch (state) {
@@ -63,28 +80,29 @@ function initClient(user) {
     });
 }
 
-
 function initAndRegisterGuest(user) {
-    USER_ID = user;
-    console.log("Selected user: " + USER_ID);
+    setUser(user);
 
+    passwd = RSIM_PASSWD;
+    console.log("Selected pass: " + passwd);
+
+    setResult("<p>Please wait. Create Client...</p>");
     client = matrixcs.createClient({ "baseUrl": BASE_URL, });
 
-    PASSWD = "Berna-" + USER_ID.substr(1,5);
-    console.log(PASSWD);
-    client.registerGuest({body: {"user": USER_ID, "password": PASSWD}}, loginCallback)
+    setResult("<p>Please wait. Register Guest...</p>");
+    client.registerGuest(
+        {"body": {"user": userId, "password": passwd}},
+        (err, data) => loginCallback(err, data))
         .then((response) => {
             console.log("registerGuest done...");
-            TOKEN = response.access_token;
+            token = response.access_token;
             console.log(response.access_token);
             showConfig();
+            setResult("<p>Please wait. Starting Client...</p>");
 
             client.startClient();
         })
         .catch((err) => displayError(err));
-
-    $("#result").html(" <p>Please wait. Syncing...</p>");
-    showConfig();
 
     client.on("sync", function(state, prevState, data) {
         switch (state) {
@@ -108,48 +126,64 @@ function displayError(err) {
 }
 
 function syncComplete() {
-    $("#result").html(" <p>Ready for calls.</p>");
+    appendResult("Sync complete. Ready for calls");
     disableButtons(false, true, true);
-    
+
     $("#call-audio").click(() => {
-        console.log("Placing audio call...");
-        call = matrixcs.createNewMatrixCall(client, ROOM_ID);
+        console.log("Placing audio call to talent-factory");
+        call = matrixcs.createNewMatrixCall(client, TF_ROOM_ID);
         console.log("Call => %s", call);
         addListeners(call);
         call.placeVoiceCall();
-        $("#result").html(" <p>Placed voice call.</p>");
-        disableButtons(true, true, false); 
+        setResult(" <p>Placed voice call to talent-factory.</p>");
+        disableButtons(true, true, false);
     });
 
+    $("#call-room").click(() => callIntoSelectedRoom ());
+
     $("#hangup").click(() => {
-        console.log("Hanging up call...");
-        console.log("Call => %s", call);
+        console.log("Hangup call => %s", call);
         call.hangup();
-        $("#result").html(" <p>Hungup call.</p>");
+        setResult(" <p>Hungup call.</p>");
     });
 
     $("#answer").click(() =>  {
-        console.log("Answering call...");
-        console.log("Call => %s", call);
+        console.log("Answering to call => %s", call);
         call.answer();
         disableButtons(true, true, false);
-        $("#result").html(" <p>Answered call.</p>");
+        setResult("Answering call.");
     });
 
     client.on("Call.incoming", function(c) {
-        console.log("Call ringing");
+        setResult("Incoming call...");
         disableButtons(true, false, false);
-        $("#result").html(" <p>Incoming call...</p>");
         call = c;
         addListeners(call);  
     });
+}
+
+function callIntoSelectedRoom () {
+    setResult("Joining room: " + roomId);
+    client.joinRoom(roomId)
+        .then(() => placeCall())
+        .catch((err) => displayError(err));
+}
+
+function placeCall() {
+    appendResult(" | Create new matrix call...");
+    call = matrixcs.createNewMatrixCall(client, roomId);
+    console.log("Call => %s", call);
+    addListeners(call);
+    call.placeVoiceCall();
+    appendResult(" | Placed voice call to: " + roomId);
+    disableButtons(true, true, false);
 }
 
 function addListeners(call) {
     var lastError = "";
     call.on("hangup", function() {
         disableButtons(false, true, true);
-        $("#result").html("<p>Call ended. Last error: "+lastError+"</p>");
+        setResult("<p>Call ended. Last error: "+lastError+"</p>");
     });
     call.on("error", function(err) {
         lastError = err.message;
@@ -160,6 +194,7 @@ function addListeners(call) {
 
 function disableButtons(place, answer, hangup) {
     $("#call-audio").prop("disabled",  place);
+    $("#call-room").prop("disabled",  place);
     $("#answer").prop("disabled",  answer);
     $("#hangup").prop("disabled",  hangup);
 }
@@ -167,12 +202,25 @@ function disableButtons(place, answer, hangup) {
 function showConfig() {
     $("#config").html(" <p>" +
         "Homeserver: <code>"+BASE_URL+"</code><br/>"+
-        "Room: <code>"+ROOM_ID+"</code><br/>"+
-        "User: <code>"+USER_ID+"</code><br/>"+
-        "AccessToken: <code>"+TOKEN+"</code><br/>"+
+        "Room: <code>"+roomId+"</code><br/>"+
+        "User: <code>"+userId+"</code><br/>"+
+        "AccessToken: <code>"+token+"</code><br/>"+
         "</p>");
 }
 
+function setResult(aText, ) {
+    $("#result").html(aText);
+    console.log(" s----> " + aText)
+}
+
+function appendResult(aText) {
+    $("#result").html($("#result").html() + aText);
+    console.log(" a----> " + aText)
+}
+
+//------------------
+// MIC mute
+//------------------
 let stream;
 let gUM = c => navigator.mediaDevices.getUserMedia(c);
 

@@ -11,32 +11,48 @@
     <br><br>
     <span>You can place and receive calls within this page.</span>
     <hr>
-    <span>First select a room (aka a channel):<span>
-    <label for="roomselector">Room:</label>
+
+    <span>First select a room (aka a channel):</span>
+    <label for="roomselector">Radio-Sim rooms:&nbsp;</label>
     <select id="roomselector">
         {% for room in rooms %}
         <option value="{{room.room_id}}">{{room.room_name}}</option>
         {% endfor %}
-    </select>&nbsp;&nbsp;<span>room_id</span>&nbsp;<span id="selval">(-)</span>
+    </select>&nbsp;&nbsp;
+    <label for="tf-radio-sim">...or this one:</label>
+    <button id="tf-radio-sim">tf-radio-sim</button>
     <br><br>
+    <span>Selected room_id:</span>&nbsp;<span id="selval">(-)</span>
     <hr>
-    Then select a user:<br>
-    <button id="tf001">tf001</button>
-    <button id="tf002">tf002</button>
-    <button id="tf003">tf003</button>
-    <button id="stefangraf">stefangraf</button>
-    <button id="tf004">tf004 (guest)</button>
+
+    <span>Then select a user:</span>
+    <div>
+        <button id="tf001">tf001</button>
+        <button id="tf002">tf002</button>
+        <button id="tf003">tf003</button>
+        <button id="stefangraf">stefangraf</button>
+        <!--button id="tf004">tf004 (guest)</button -->
+    </div>
+    <div>
+        <label for="usernameinput">...or enter username:</label>
+        <input type="text" id="usernameinput" placeholder="enter username"/><button id="takeuser">use this</button>
+    </div>
     <br>
-    Username:&nbsp;<input>
-    <br><br>
+    <span>Selected user:</span>&nbsp;<span id="seluser">(-)</span>
+    <hr>
+    <div>
+        <button id="initClient" >Init and Start Matrix-Client</button>
+    </div>
+    <hr>
     <div id="config"></div>
     <div id="result"></div>
-    <br>
-    <button id="call-audio">Place Call</button>
+    <hr>
+    <button id="call-audio">Place Call into 'talent-factory'</button>
+    <button id="call-room">Place Call into selected room</button>
     <button id="answer">Answer Call</button>
     <button id="hangup">Hangup Call</button>
     <br><br>
     <button id="ptt">Push To Talk</button>
-    <label><input id="mic" type="checkbox">Mic open</label>
+    <label><input id="mic" type="checkbox"/>Mic open</label>
 </body>
 </html>
