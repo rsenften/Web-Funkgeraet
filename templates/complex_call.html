@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Simple Call</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../static/lib/matrix.js"></script>
+    <script src="../static/js/simple_call.js"></script>
+</head>
+<body>
+    <h2>Complex Call</h2>
+    <table>
+        <tr>
+            <td>
+                <a href="{% url 'home_view' %}">Home</a>
+            </td>
+            <td>
+                <h3>You can place and receive calls within this page.</h3>
+            </td>
+        </tr>
+    </table>
+    <h4>First select a user:</h4>
+    <div>
+        <button id="tf001">tf001</button>
+        <button id="tf002">tf002</button>
+        <button id="tf003">tf003</button>
+        <button id="stefangraf">stefangraf</button>
+        <!--button id="tf004">tf004 (guest)</button -->
+    </div>
+    <div>
+        <label for="usernameinput">...or enter username:</label>
+        <input type="text" id="usernameinput" placeholder="enter username"/><button id="takeuser">use this</button>
+    </div>
+    <br>
+    <span>Selected user:</span>&nbsp;<span id="seluser">(-)</span>
+
+    <hr>
+    <h4>Then select a room (aka a channel):</h4>
+    <label for="roomselector">Radio-Sim rooms:&nbsp;</label>
+    <select id="roomselector">
+        {% for room in rooms %}
+        <option value="{{room.room_id}}">{{room.room_name}}</option>
+        {% endfor %}
+    </select>&nbsp;&nbsp;
+    <label for="tf-radio-sim">...or this one:</label>
+    <button id="tf-radio-sim">tf-radio-sim</button>
+    <br><br>
+    <span>Selected room:</span>&nbsp;<span id="selval">(-)</span>
+
+    <hr>
+    <h4>Prepare the matrix system:</h4>
+    <div>
+        <button id="initClient">Init and start Matrix-Client</button>
+        &nbsp;&nbsp;
+        <button id="checkRoom">Check room</button>
+        <button id="joinRoom">Join room</button>
+        <button id="leaveRoom">Leave room</button>
+        <div id="joined"></div>
+    </div>
+
+    <hr>
+    <h4>Make a call:</h4>
+    <div>
+        <!--button id="call-audio">Place Call into 'talent-factory'</button-->
+        <button id="call-room">Place Call to joined room</button>
+        <button id="answer">Answer Call</button>
+        <button id="hangup">Hangup Call</button>
+    </div>
+
+    <hr>
+    <h4>Microphone simulation:</h4>
+    <div>
+        <button id="ptt">Push To Talk</button>
+        <label><input id="mic" type="checkbox"/>Mic open</label>
+    </div>
+
+    <hr>
+    <h4>Messages:</h4>
+    <div id="config"></div>
+    <div id="result"></div>
+</body>
+</html>

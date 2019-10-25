@@ -18,8 +18,11 @@ def create_room(request):
 
 
 def simple_call(request):
+    return render(request, 'simple_call.html', {})
 
-    return render(request, 'simple_call.html', {"rooms": Room.objects.all().order_by('room_name')})
+
+def complex_call(request):
+    return render(request, 'complex_call.html', {"rooms": Room.objects.all().order_by('room_name')})
 
 
 def simulator(request):

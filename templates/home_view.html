@@ -20,7 +20,10 @@
         <input type="submit" value="Create a single room" />
     </form>
     <form action="{% url 'simple_call' %}">
-        <input type="submit" value="Simple Call with Room-Selection" />
+        <input type="submit" value="Simple Call" />
+    </form>
+    <form action="{% url 'complex_call' %}">
+        <input type="submit" value="Complex Call with Room-Selection" />
     </form>
     <form action="{% url 'recaptcha_demo' %}">
         <input type="submit" value="Registration with reCAPTCHA" />
